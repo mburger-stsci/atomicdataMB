@@ -1,16 +1,16 @@
+"""g-value routines."""
 import glob
 import os
 import numpy as np
 import pandas as pd
 import psycopg2
 import astropy.units as u
-import astropy.units.astrophys as ua
 from astropy.io import ascii
 from astropy import constants as const
 
 
 def make_gvalue_table(con):
-    '''Creates and populates gvalues database table
+    """Creates and populates gvalues database table.
 
     Fields in the table:
         filename
@@ -20,8 +20,7 @@ def make_gvalue_table(con):
         wavelength (A)
         velocity (km/s)
         g (1/s)
-    '''
-
+    """
     cur = con.cursor()
 
     # Erase the table if it is there
@@ -74,10 +73,12 @@ def make_gvalue_table(con):
             print(d, sp, wave)
 
             cur.execute('''INSERT into gvalues values (
-                             %s, %s, %s, %s, %s, %s, %s)''',
-                             (d, ref, sp, a, wave, list(vel), list(gg)))
+                           %s, %s, %s, %s, %s, %s, %s)''',
+                        (d, ref, sp, a, wave, list(vel), list(gg)))
+
 
 class gValue:
+    """gValue class."""
     def __init__(self, sp, wavelength, aplanet=1*u.au,
                  database='thesolarsystem'):
 
@@ -112,6 +113,8 @@ class gValue:
 
 
 class RadPresConst:
+    """RadPresConst class."""
+    
     def __init__(self, sp, aplanet, database='thesolarsystem'):
         import physicsMB
         import mathMB

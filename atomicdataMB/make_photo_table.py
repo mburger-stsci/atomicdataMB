@@ -1,17 +1,16 @@
-import os
+"""Create photoionization database table."""
 import glob
-import numpy as np
 
 
 def make_photo_table(con):
-    '''Create photoionization database table.
+    """Create photoionization database table.
+
     Searches for *.dat in Data/AtomicData/Loss/Photo/
     If multiple reaction rates are found for a reaction, user is prompted
         to choose the best one.
     Saves the table as an HTML table for easy viewing. [Not implemented yet
         because I don't know where to save it]
-    '''
-
+    """
     cur = con.cursor()
 
     # drop the old table if necessary
@@ -36,12 +35,12 @@ def make_photo_table(con):
         for line in open(f).readlines():
             if 'reference' in line.lower():
                 ref = line.split('//')[0].strip()
-            elif 'datatype' in line.lower():
-                dtype = line.split('//')[0].strip()
-            elif 'reactype' in line.lower():
-                rtype = line.split('//')[0].strip()
-            elif 'ratecoefunits' in line.lower():
-                un = line.split('//')[0].strip()
+            # elif 'datatype' in line.lower():
+            #     dtype = line.split('//')[0].strip()
+            # elif 'reactype' in line.lower():
+            #     rtype = line.split('//')[0].strip()
+            # elif 'ratecoefunits' in line.lower():
+            #     un = line.split('//')[0].strip()
             elif len(line.split(':')) == 4:
                 parts = line.split(':')
                 sp = parts[0].strip()
@@ -64,7 +63,7 @@ def make_photo_table(con):
             temp = cur.fetchall()
             refs = [a[0] for a in temp]
             print('Reaction = {}'.format(r))
-            for i,a in enumerate(refs):
+            for i, a in enumerate(refs):
                 print('({}) {}'.format(i, a))
             q = input('Which reference do you want to use?')
             q = int(q)
@@ -77,8 +76,3 @@ def make_photo_table(con):
                            SET bestvalue=True
                            WHERE reaction=%s''',
                         (r, ))
-
-    # Create an HTML table
-    #table = pd.readsql('''SELECT reference, species, reaction,
-    #                             kappa 'rate (s^-1)'
-    #                      WHERE bestvalue=True''', con)
