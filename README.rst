@@ -1,5 +1,5 @@
-Physics helper functions for nexoclom and general use
------------------------------------------------------
+Atomicdata functions for nexoclom and general use
+-------------------------------------------------
 
 .. image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
     :target: http://www.astropy.org
