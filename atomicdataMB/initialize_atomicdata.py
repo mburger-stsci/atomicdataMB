@@ -4,7 +4,7 @@ import psycopg2
 from atomicdataMB import make_gvalue_table, make_photo_table
 
 
-def configure_database():
+def initialize_atomicdata():
     """Configure database with atomic data.
 
     Populates gvalues and photoionization rates.
