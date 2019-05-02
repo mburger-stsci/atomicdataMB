@@ -1,6 +1,6 @@
 import astropy.units as u
-from atomicdataMB import atomicmass
 import periodictable as pt
+from ..atomicmass import atomicmass
 
 def test_Na():
     assert atomicmass('Na') == pt.Na.mass * u.u

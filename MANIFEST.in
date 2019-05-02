@@ -3,9 +3,9 @@ include CHANGES.rst
 
 include ah_bootstrap.py
 include setup.cfg
-include atomicdataMB/tests/coveragerc
+include atomicdatamb/tests/coveragerc
 
-recursive-include atomicdataMB *.pyx *.c *.pxd
+recursive-include atomicdatamb *.pyx *.c *.pxd
 recursive-include docs *
 recursive-include licenses *
 recursive-include cextern *
