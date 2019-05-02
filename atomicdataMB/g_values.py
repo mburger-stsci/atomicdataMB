@@ -7,6 +7,8 @@ import psycopg2
 import astropy.units as u
 from astropy.io import ascii
 from astropy import constants as const
+import mathMB
+from .atomicmass import atomicmass
 
 
 def make_gvalue_table(con):
@@ -116,9 +118,6 @@ class RadPresConst:
     """RadPresConst class."""
     
     def __init__(self, sp, aplanet, database='thesolarsystem'):
-        import physicsMB
-        import mathMB
-
         self.sp = sp
         try:
             self.aplanet = aplanet.value * u.au
@@ -153,7 +152,7 @@ class RadPresConst:
             rr = np.zeros_like(allv)/u.s
             for g in gvals:
                 g2 = mathMB.interpu(allv, g.velocity, g.g)
-                q = const.h/physicsMB.atomicmass(sp)/g.wavelength * g2
+                q = const.h/atomicmass(sp)/g.wavelength * g2
                 rr += q.to(u.km/u.s**2)
             self.velocity = allv
             self.accel = rr
