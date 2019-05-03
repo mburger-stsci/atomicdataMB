@@ -1,4 +1,5 @@
 """Create photoionization database table."""
+import os, os.path
 import glob
 
 
@@ -28,7 +29,8 @@ def make_photo_table(con):
                      kappa float,
                      bestvalue boolean)''')
 
-    photodatafiles = glob.glob('**/data/Loss/Photo/*.dat', recursive=True)
+    photodatafiles = glob.glob(os.path.join(os.path.dirname(__file__), 'data',
+                                       'Loss', 'Photo', '*.dat'))
 
     for f in photodatafiles:
         print(f'  {f}')

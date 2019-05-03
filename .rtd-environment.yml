@@ -1,16 +1,14 @@
-name: physicsMB
+name: atomicdataMB
 
 channels:
     - defaults
 
 dependencies:
-    - python>=3.6
-    - astropy
-    - matplotlib
+    - python>=3.7
+    - setuptools
     - numpy
     - pip:
       - sphinx
-      - sphinx_rtd_theme
+      - sphinx-automodapi
       - stsci_rtd_theme
-      - sphinx-astropy
       - periodictable

@@ -4,21 +4,31 @@ import psycopg2
 from atomicdataMB import make_gvalue_table, make_photo_table
 
 
-def initialize_atomicdata():
-    """Configure database with atomic data.
+def initialize_atomicdata(database='thesolarsystemmb'):
+    with psycopg2.connect(host='localhost', database='postgres') as con:
+        con.autocommit = True
+        cur = con.cursor()
+        cur.execute('select datname from pg_database')
+        dbs = [r[0] for r in cur.fetchall()]
 
-    Populates gvalues and photoionization rates.
-    """
-    configfile = os.path.join(os.environ['HOME'], '.nexoclom')
-    config = {}
-    if os.path.isfile(configfile):
-        for line in open(configfile, 'r').readlines():
-            key, value = line.split('=')
-            config[key.strip()] = value.strip()
+        if database not in dbs:
+            print(f'Creating database {database}')
+            cur.execute(f'create database {database}')
+        else:
+            pass
 
-    database = config['database']
+    with psycopg2.connect(host='localhost', database=database) as con:
+        con.autocommit = True
+        cur = con.cursor()
+        cur.execute('select table_name from information_schema.tables')
+        tables = [r[0] for r in cur.fetchall()]
 
-    con = psycopg2.connect(database=database)
-    con.autocommit = True
-    make_gvalue_table(con)
-    make_photo_table(con)
+        if 'gvalues' not in tables:
+            make_gvalue_table(con)
+        else:
+            pass
+
+        if 'photorates' not in tables:
+            make_photo_table(con)
+        else:
+            pass

@@ -1,6 +1,6 @@
 """g-value routines."""
 import glob
-import os
+import os, os.path
 import numpy as np
 import pandas as pd
 import psycopg2
@@ -42,7 +42,9 @@ def make_gvalue_table(con):
                      g float[])''')  # 1/s
 
     # Look up the gvalue datafiles
-    datafiles = glob.glob('**/data/g-values/*.dat', recursive=True)
+
+    datafiles = glob.glob(os.path.join(os.path.dirname(__file__), 'data',
+                                       'g-values', '*.dat'))
     ref = 'Killen et al. (2009)'
 
     for d in datafiles:
@@ -116,7 +118,7 @@ class gValue:
 
 class RadPresConst:
     """RadPresConst class."""
-    
+
     def __init__(self, sp, aplanet, database='thesolarsystem'):
         self.sp = sp
         try:
