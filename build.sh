@@ -12,3 +12,5 @@ git commit -m "$comment"
 git push
 
 twine upload dist/*
+
+#pip install --upgrade --no-deps atomicdataMB

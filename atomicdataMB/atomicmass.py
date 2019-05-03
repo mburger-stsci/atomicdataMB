@@ -6,10 +6,6 @@ This is really just a wrapper for
 <https://periodictable.readthedocs.io/en/latest/index.html>`_
 but returns the mass as an `astropy quantity
 <http://docs.astropy.org/en/stable/units/index.html>`_.
-
-:Authors: Matthew Burger
-
-:License: :doc:`LICENSE`
 """
 
 import sys

@@ -11,8 +11,7 @@ atomicdataMB provides support for the Neutral Cloud and Exospheres Model
   atomicmass
   g_values
   photolossrates
-
-  README
+  initialize_atomicdata
   LICENSE
 
 
@@ -26,15 +25,18 @@ Basic installation method:
 * Requirements
 
   * python >= 3.6
-  * A postgreSQL database server. This can be installed using conda:
->>> conda install postgresql
-
-    postgreSQL is also installed when creating the nexoclom python environment
-    (see XXX).
+  * A postgreSQL database server.
 
   * psycopg2
   * pandas
   * `periodictable <https://periodictable.readthedocs.io/en/latest/index.html>`_
+
+PostgreSQL can be installed using conda:
+
+>>> conda install postgresql
+
+PostgreSQL is also installed when creating the nexoclom python environment
+(see XXX).
 
 User Documentation
 ==================
