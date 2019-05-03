@@ -128,7 +128,7 @@ setup(name=PACKAGENAME,
           packages=find_packages(),
           package_data={PACKAGENAME:
                         ['data/g-values/*.dat',
-                         'data/atomicdataMB/data/Loss/Photo/*.dat']},
+                         'data/Loss/Photo/*.dat']},
           include_package_data=True,
           cmdclass={
               'test': PyTest,

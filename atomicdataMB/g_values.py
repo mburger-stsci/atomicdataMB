@@ -26,10 +26,12 @@ def make_gvalue_table(con):
     cur = con.cursor()
 
     # Erase the table if it is there
-    try:
-        cur.execute('DROP TABLE gvalues')
-    except:
-        con.rollback()
+    cur.execute('select table_name from information_schema.tables')
+    tables = [r[0] for r in cur.fetchall()]
+    if 'gvalues' in tables:
+        cur.execute('''DROP table photorates''')
+    else:
+        pass
 
     # Create the table
     cur.execute('''CREATE TABLE gvalues (

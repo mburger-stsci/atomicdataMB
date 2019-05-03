@@ -1,10 +1,32 @@
-"""Populate database with atomic data."""
-import os
+"""Populate the database with the available atomic data.
+Currently populates g-values and photoionization rates. If the database does
+not exist, it will be created. By default, the tables will only be created if
+
+"""
 import psycopg2
-from atomicdataMB import make_gvalue_table, make_photo_table
+from .photolossrates import make_photo_table
+from .g_values import make_gvalue_table
 
 
-def initialize_atomicdata(database='thesolarsystemmb'):
+def initialize_atomicdata(database='thesolarsystemmb', force=False):
+    """Populate the database with available atomic data if nececssary.
+
+    **Parameters**
+
+    database
+        Name of the PostgeSQL database to use. Default is 'thesolarsystemmb'
+        and there should be no reason to change this. This database is used
+        for all nexoclom modules.
+
+    force
+        By default, the database tables are only created if they do not already
+        exist. Set force to True to force the tables to be remade. This would
+        be necessary if there are updates to the atomic data.
+
+    **Output**
+    No output.
+    """
+
     with psycopg2.connect(host='localhost', database='postgres') as con:
         con.autocommit = True
         cur = con.cursor()
@@ -23,12 +45,12 @@ def initialize_atomicdata(database='thesolarsystemmb'):
         cur.execute('select table_name from information_schema.tables')
         tables = [r[0] for r in cur.fetchall()]
 
-        if 'gvalues' not in tables:
+        if ('gvalues' not in tables) or (force):
             make_gvalue_table(con)
         else:
             pass
 
-        if 'photorates' not in tables:
+        if ('photorates' not in tables) or (force):
             make_photo_table(con)
         else:
             pass

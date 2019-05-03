@@ -6,11 +6,14 @@ atomicdataMB provides support for the Neutral Cloud and Exospheres Model
 (nexoclom) and can be used as a standalone package.
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 2
 
   atomicmass
-  LICENSE
+  g_values
+  photolossrates
+
   README
+  LICENSE
 
 
 Installation
@@ -28,14 +31,10 @@ Basic installation method:
 
     postgreSQL is also installed when creating the nexoclom python environment
     (see XXX).
-    
+
   * psycopg2
   * pandas
   * `periodictable <https://periodictable.readthedocs.io/en/latest/index.html>`_
-* how to install
-* basic usage
-* common problems
-
 
 User Documentation
 ==================
