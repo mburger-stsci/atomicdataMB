@@ -16,8 +16,8 @@ dependencies:
   - sphinx
   - pip:
     - periodictable
-    - sphinx-rtd-theme
-    - stsci-rtd-theme
+    - sphinx_rtd_theme
+    - stsci_rtd_theme
     - mathmb
       
 
