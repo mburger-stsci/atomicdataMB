@@ -1,8 +1,6 @@
 include README.rst
 include CODE_OF_CONDUCT.rst
 
-include RELIC-INFO
-
 include setup.cfg
 include atomicdatamb/tests/
 
