@@ -1,17 +1,22 @@
 name: atomicdataMB
 
 channels:
-    - defaults
+  - anaconda
+  - conda-forge
+  - http://ssb.stsci.edu/astroconda
+  - defaults
 
 dependencies:
-    - python=3.7
-    - setuptools
-    - numpy
-    - astropy
-    - pip:
-      - sphinx
-      - sphinx-automodapi
-      - sphinx_rtd_theme
-      - stsci_rtd_theme
-      - periodictable
-      - mathMB
+  - pip
+  - python=3.7
+  - numpy
+  - astropy
+  - psycopg2
+  - pandas
+  - sphinx
+  - pip:
+    - periodictable
+    - sphinx-rtd-theme
+    - stsci-rtd-theme
+      
+
