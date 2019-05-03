@@ -3,6 +3,8 @@ version: 2
 sphinx:
     configuration: docs/conf.py
 
+formats: all
+
 conda:
     file: .rtd-environment.yml
 
@@ -11,6 +13,4 @@ python:
     install:
         - method: setuptools
           path: package
-
-formats: all
 

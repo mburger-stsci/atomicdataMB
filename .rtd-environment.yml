@@ -1,4 +1,4 @@
-name: nexoclom
+name: atomicdataMB
 
 channels:
   - anaconda
@@ -18,5 +18,6 @@ dependencies:
     - periodictable
     - sphinx-rtd-theme
     - stsci-rtd-theme
+    - mathmb
       
 

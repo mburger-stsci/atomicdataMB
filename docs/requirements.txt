@@ -1,5 +1,10 @@
+numpy
+astropy
+psycopg2
+pandas
 sphinx
-sphinx-automodapi
-sphinx_rtd_theme
-stsci_rtd_theme
+periodictable
+sphinx-rtd-theme
+stsci-rtd-theme
+mathmb    
 
