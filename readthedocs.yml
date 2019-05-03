@@ -5,12 +5,12 @@ sphinx:
 
 formats: all
 
-conda:
-    file: .rtd-environment.yml
+#conda:
+#    file: .rtd-environment.yml
 
 python:
     version: 3.7
     install:
-        - method: setuptools
-          path: package
+        - method: pip
+          path: .
 
