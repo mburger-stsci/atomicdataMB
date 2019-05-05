@@ -1,0 +1,20 @@
+name: atomicdataMB
+channels:
+  - anaconda
+  - conda-forge
+  - http://ssb.stsci.edu/astroconda
+  - defaults
+dependencies:
+  - pip
+  - python=3.7.3
+  - numpy
+  - scipy
+  - astropy
+  - postgresql
+  - psycopg2
+  - pandas
+  - matplotlib
+  - pip:
+    - periodictable
+    - atomicdatamb
+    - mathmb
