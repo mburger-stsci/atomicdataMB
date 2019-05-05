@@ -1,12 +1,13 @@
 version: 2
 
 sphinx:
+    builder: html
     configuration: docs/conf.py
 
 formats: all
 
 conda:
-    file: conda.environment
+    environment: .rtd-environment.yml
 
 python:
     version: 3.7
