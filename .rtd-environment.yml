@@ -5,4 +5,5 @@ dependencies:
   - pip:
     - periodictable
     - mathmb
+    - stsci_rtd_theme
 
