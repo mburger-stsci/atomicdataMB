@@ -10,4 +10,7 @@ __email__ = 'mburger@stsci.edu'
 __version__ = '1.0.8'
 
 # Verify the database is setup correctly
-initialize_atomicdata()
+try:
+    initialize_atomicdata()
+except:
+    print('database initialization failed')
