@@ -99,7 +99,7 @@ class PhotoRate:
         Distance from the Sun. Default is 1 AU. Given as either a numeric
         type or an astropy quantity with length units.
 
-    **Attributes**
+    **Class Attributes**
 
     species
         Species

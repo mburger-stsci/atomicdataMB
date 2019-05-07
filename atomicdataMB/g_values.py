@@ -15,12 +15,19 @@ def make_gvalue_table(con):
     """Creates and populates gvalues database table.
 
     Fields in the table:
+
         filename
+
         reference
+
         speceis
+
         refpt (AU)
+
         wavelength (A)
+
         velocity (km/s)
+
         g (1/s)
     """
     cur = con.cursor()
@@ -84,9 +91,46 @@ def make_gvalue_table(con):
 
 
 class gValue:
-    """gValue class."""
-    def __init__(self, sp, wavelength, aplanet=1*u.au,
-                 database='thesolarsystem'):
+    r"""Class containing g-value vs. velocity for a specified atom and
+    transition.
+
+    **Parameters**
+
+    sp
+        atomic species
+
+    wavelength
+        Wavelength of the transition
+
+    aplanet
+        Distance from the Sun. Can be given as an astropy quantity with
+        distance units or as a float assumed to be in AU. Default = 1 AU
+
+    database
+        Database containing solar system information. Default =
+        `thesolarsystem` which probably shouldn't be overridden.
+
+    **Class Attributes**
+
+    species
+        The input species
+
+    wavelength
+        The input wavelength
+
+    aplanet
+        The input aplanet
+
+    velocity
+        Radial velocity deviation relative to the Sun in km/s.
+        Positive values indicate
+        motion away from the Sun. Given as a numpy array of astropy quantities
+
+    g
+        g-value as function of velocity in units 1/s.
+    """
+    def __init__(self, sp=None, wavelength=None, aplanet=1*u.au,
+                 database='thesolarsystemmb'):
 
         self.species = sp
         try:
@@ -107,7 +151,7 @@ class gValue:
                           wavelength='{self.wavelength.value}' ''', con)
 
         if len(gvalue) == 0:
-            self.v = np.array([0., 1.])*u.km/u.s
+            self.velocity = np.array([0., 1.])*u.km/u.s
             self.g = np.array([0., 0.])/u.s
             print(f'Warning: g-values not found for species = {sp}')
         elif len(gvalue) == 1:
@@ -119,10 +163,39 @@ class gValue:
 
 
 class RadPresConst:
-    """RadPresConst class."""
+    r"""Class containing radial acceleration vs. velocity for a specified atom.
 
-    def __init__(self, sp, aplanet, database='thesolarsystem'):
-        self.sp = sp
+    **Parameters**
+
+    sp
+        atomic species
+
+    aplanet
+        Distance from the Sun. Can be given as an astropy quantity with
+        distance units or as a float assumed to be in AU. Default = 1 AU
+
+    database
+        Database containing solar system information. Default =
+        `thesolarsystem` which probably shouldn't be overridden.
+
+    **Class Attributes**
+
+    species
+        The input species
+
+    aplanet
+        The input distance from the Sun
+
+    velocity
+        Radial velocity deviation relative to the Sun in km/s.
+        Positive values indicate
+        motion away from the Sun. Given as a numpy array of astropy quantities
+
+    accel
+        Radial acceleration vs. velocity with units km/s**2.
+    """
+    def __init__(self, sp, aplanet, database='thesolarsystemmb'):
+        self.species = sp
         try:
             self.aplanet = aplanet.value * u.au
         except:

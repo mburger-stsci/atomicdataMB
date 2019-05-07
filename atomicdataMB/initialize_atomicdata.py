@@ -46,11 +46,13 @@ def initialize_atomicdata(database='thesolarsystemmb', force=False):
         tables = [r[0] for r in cur.fetchall()]
 
         if ('gvalues' not in tables) or (force):
+            print('Making gvalue table')
             make_gvalue_table(con)
         else:
             pass
 
         if ('photorates' not in tables) or (force):
+            print('Making photorates table')
             make_photo_table(con)
         else:
             pass
