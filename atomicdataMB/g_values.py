@@ -62,13 +62,14 @@ def make_gvalue_table(con):
         sp = f.split('.')[0]
 
         # Determine reference point for the file
-        ff = open(d).readlines()
-        astr = ff[0]
-        a = float(astr.split('=')[1])
+        with open(d, 'r') as f:
+            # Determine the reference point
+            astr = f.readline().strip()
+            a = float(astr.split('=')[1])
 
-        # Determine the wavelengths
-        ww = ff[1].split(':')[1:]
-        wavestr = [w.strip() for w in ww]
+            # Determine the wavelengths
+            ww = f.readline().strip().split(':')[1:]
+            wavestr = [w.strip() for w in ww]
 
         # Read in the data table
         data = ascii.read(d, delimiter=':', header_start=1)
@@ -134,12 +135,12 @@ class gValue:
 
         self.species = sp
         try:
-            self.wavelength = wavelength.value * u.AA
+            self.wavelength = wavelength.to(u.AA)
         except:
             self.wavelength = wavelength * u.AA
 
         try:
-            self.aplanet = aplanet.value * u.au
+            self.aplanet = aplanet.to(u.au)
         except:
             self.aplanet = aplanet * u.au
 
@@ -220,10 +221,8 @@ class RadPresConst:
             # Complete velocity set
             allv = []
             for g in gvals:
-                allv.extend(g.velocity)
-            allv = list(set(allv))
-            allv = sorted(allv)
-            allv = np.array([v.value for v in allv]) * u.km/u.s
+                allv.extend(g.velocity.value)
+            allv = np.unique(allv) * u.km/u.s
 
             # Interpolate gvalues to full velocity set and compute rad pres
             rr = np.zeros_like(allv)/u.s

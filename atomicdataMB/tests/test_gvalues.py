@@ -10,7 +10,33 @@ except:
 def test_gValue():
     """Compare gvalues with gvalues in IDL code."""
     eps = 1e-5
+
+    ## Test 1
     g = gValue('Na', 5891, 1.5)
+
+    correct = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data',
+                                       'g_value_test_data_Na_5891_1.5.dat'))
+    newg = np.interp(g.velocity.value, correct.velocity, correct.g)
+
+    assert g.wavelength == 5891.*u.AA
+    assert g.species == 'Na'
+    assert g.aplanet == 1.5*u.au
+    assert np.all(np.abs(g.g.value - newg < eps))
+
+    ## Test 2
+    g = gValue('Na', 5891*u.AA, 1.5)
+
+    correct = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data',
+                                       'g_value_test_data_Na_5891_1.5.dat'))
+    newg = np.interp(g.velocity.value, correct.velocity, correct.g)
+
+    assert g.wavelength == 5891.*u.AA
+    assert g.species == 'Na'
+    assert g.aplanet == 1.5*u.au
+    assert np.all(np.abs(g.g.value - newg < eps))
+
+    ## Test 3
+    g = gValue('Na', 5891, 1.5*u.au)
 
     correct = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data',
                                        'g_value_test_data_Na_5891_1.5.dat'))

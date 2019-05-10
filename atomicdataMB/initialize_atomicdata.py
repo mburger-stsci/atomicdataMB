@@ -27,6 +27,7 @@ def initialize_atomicdata(database='thesolarsystemmb', force=False):
     No output.
     """
 
+    # Create database if necessary
     with psycopg2.connect(host='localhost', database='postgres') as con:
         con.autocommit = True
         cur = con.cursor()
@@ -39,6 +40,7 @@ def initialize_atomicdata(database='thesolarsystemmb', force=False):
         else:
             pass
 
+    # Populate the database tables
     with psycopg2.connect(host='localhost', database=database) as con:
         con.autocommit = True
         cur = con.cursor()
