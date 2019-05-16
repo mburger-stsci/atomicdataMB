@@ -7,7 +7,7 @@ from .atomicmass import atomicmass
 name = 'atomicdataMB'
 __author__ = 'Matthew Burger'
 __email__ = 'mburger@stsci.edu'
-__version__ = '1.0.10'
+__version__ = '1.0.11'
 
 # Verify the database is setup correctly
 try:

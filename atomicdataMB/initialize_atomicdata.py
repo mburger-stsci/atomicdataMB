@@ -3,6 +3,7 @@ Currently populates g-values and photoionization rates. If the database does
 not exist, it will be created. By default, the tables will only be created if
 
 """
+import os
 import psycopg2
 from .photolossrates import make_photo_table
 from .g_values import make_gvalue_table
@@ -26,6 +27,13 @@ def initialize_atomicdata(database='thesolarsystemmb', force=False):
     **Output**
     No output.
     """
+    # Verify database is running
+    status = os.popen('pg_ctl status').read()
+    if 'no server running' in status:
+        os.system('pg_ctl -D $HOME/.postgres/main/ -l '
+                  '$HOME/.postgres/logfile start')
+    else:
+        pass
 
     # Create database if necessary
     with psycopg2.connect(host='localhost', database='postgres') as con:
