@@ -130,10 +130,18 @@ class gValue:
     g
         g-value as function of velocity in units 1/s.
     """
-    def __init__(self, sp=None, wavelength=None, aplanet=1*u.au,
+    def __init__(self, sp, wavelength=None, aplanet=1*u.au,
                  database='thesolarsystemmb'):
 
         self.species = sp
+        if wavelength is None:
+            assert 0
+            # waves = pd.read_sql(
+            #     f'''SELECT DISTINCT wavelength
+            #         FROM gvalues
+            #         WHERE species='{self.species}' ''', con)
+            # self.wavelength = [w * u.AA for w in waves.wavelength]
+
         try:
             self.wavelength = wavelength.to(u.AA)
         except:

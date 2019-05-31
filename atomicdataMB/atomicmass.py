@@ -16,7 +16,7 @@ import astropy.units as u
 def atomicmass(species):
     r"""Return the atomic mass of an atom or molecule.
 
-    **Parameters**
+    **Parameters** 
 
     species
         Chemical formula requested species. See `periodictable
@@ -28,7 +28,6 @@ def atomicmass(species):
     output
         atomicmass of ``species`` as an astropy quantity with units = AMU
         :math:`(1\, \mathrm{AMU} = 1.660539 \times 10^{−27}\, \mathrm{kg})`
-
     """
     el = [e.symbol for e in pt.elements]
     if species in el:
