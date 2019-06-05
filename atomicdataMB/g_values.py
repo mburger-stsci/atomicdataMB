@@ -15,19 +15,12 @@ def make_gvalue_table(con):
     """Creates and populates gvalues database table.
 
     Fields in the table:
-
         filename
-
         reference
-
         speceis
-
         refpt (AU)
-
         wavelength (A)
-
         velocity (km/s)
-
         g (1/s)
     """
     cur = con.cursor()
