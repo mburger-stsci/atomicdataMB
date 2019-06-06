@@ -8,35 +8,14 @@ atomicdataMB provides support for the Neutral Cloud and Exospheres Model
 .. toctree::
   :maxdepth: 2
 
-  atomicmass
-  g_values
-  photolossrates
-  initialize_atomicdata
+  usage/installation
+  usage/examples
+  atomicdataMB/atomicmass
+  atomicdataMB/g_values
+  atomicdataMB/photolossrates
+  atomicdataMB/initialize_atomicdata
   LICENSE
 
-
-Installation
-============
-
-Basic installation method:
-
->>> pip install atomicdataMB
-
-* Requirements
-
-  * python >= 3.6
-  * A postgreSQL database server.
-
-  * psycopg2
-  * pandas
-  * `periodictable <https://periodictable.readthedocs.io/en/latest/index.html>`_
-
-PostgreSQL can be installed using conda:
-
->>> conda install postgresql
-
-PostgreSQL is also installed when creating the nexoclom python environment
-(see XXX).
 
 User Documentation
 ==================
@@ -45,17 +24,13 @@ Explain how to use your software
 
 Reporting Issues
 ================
-How and where should users report problems
-
+This project is hosted on github at `atomicdataMB
+<https://github.com/mburger-stsci/atomicdataMB>`_. Please report bugs or make
+comments there.
 
 Contributing
 ============
-Discuss how or if your software accepts contributions.
-This package template has a default CONTRIBUTING.md file
-that can be referenced here. It may include sections such as:
-
-* How to make a code contribution
-* Coding Guidelines
+Please let me know if you would like to make contributions.
 
 
 Reference API

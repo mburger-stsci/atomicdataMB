@@ -102,7 +102,7 @@ class gValue:
 
     database
         Database containing solar system information. Default =
-        `thesolarsystem` which probably shouldn't be overridden.
+        `thesolarsystemmb` which probably shouldn't be overridden.
 
     **Class Attributes**
 
