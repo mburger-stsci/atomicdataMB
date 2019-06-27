@@ -2,7 +2,6 @@
 import os, os.path
 import glob
 import pandas as pd
-import psycopg2
 import astropy.units as u
 from .database_connect import database_connect
 

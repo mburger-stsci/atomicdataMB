@@ -13,4 +13,4 @@ git push
 
 twine upload dist/*
 
-#pip install --upgrade --no-deps atomicdataMB
+pip install --upgrade --no-deps atomicdataMB

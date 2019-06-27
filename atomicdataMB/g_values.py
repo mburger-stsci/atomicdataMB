@@ -3,7 +3,6 @@ import glob
 import os, os.path
 import numpy as np
 import pandas as pd
-import psycopg2
 import astropy.units as u
 from astropy.io import ascii
 from astropy import constants as const
