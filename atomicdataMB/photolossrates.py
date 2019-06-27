@@ -4,9 +4,10 @@ import glob
 import pandas as pd
 import psycopg2
 import astropy.units as u
+from .database_connect import database_connect
 
 
-def make_photo_table(con=None):
+def make_photo_table():
     """Create photoionization database table.
 
     If multiple reaction rates are found for a reaction, user is prompted
@@ -15,9 +16,7 @@ def make_photo_table(con=None):
     Photoionization and photodissociation reference:
     Huebner & Mukherjee (2015), Astrophys. Space Sci., 195, 1-294.
     """
-    if con is None:
-        con = psycopg2.connect(host='localhost', database='thesolarsystemmb')
-        con.autocommit = True
+    con = database_connect()
 
     # drop the old table if necessary
     cur = con.cursor()
@@ -38,7 +37,7 @@ def make_photo_table(con=None):
                      bestvalue boolean)''')
 
     photodatafiles = glob.glob(os.path.join(os.path.dirname(__file__), 'data',
-                                       'Loss', 'Photo', '*.dat'))
+                                            'Loss', 'Photo', '*.dat'))
 
     for f in photodatafiles:
         print(f'  {f}')
@@ -86,6 +85,8 @@ def make_photo_table(con=None):
                            SET bestvalue=True
                            WHERE reaction=%s''',
                         (r, ))
+    con.close()
+
 
 class PhotoRate:
     r"""Determine photoreactions and photorates for a species.
@@ -115,8 +116,7 @@ class PhotoRate:
         that reaction
     """
     def __init__(self, species, aplanet_=1.*u.AU):
-        with psycopg2.connect(host='localhost',
-                              database='thesolarsystemmb') as con:
+        with database_connect() as con:
             prates = pd.read_sql(
                 f'''SELECT reaction, kappa
                     FROM photorates

@@ -4,12 +4,12 @@ not exist, it will be created. By default, the tables will only be created if
 
 """
 import os
-import psycopg2
 from .photolossrates import make_photo_table
 from .g_values import make_gvalue_table
+from .database_connect import database_connect
 
 
-def initialize_atomicdata(database='thesolarsystemmb', force=False):
+def initialize_atomicdata(force=False):
     """Populate the database with available atomic data if nececssary.
 
     **Parameters**
@@ -27,17 +27,19 @@ def initialize_atomicdata(database='thesolarsystemmb', force=False):
     **Output**
     No output.
     """
+    # Get database name and port
+    database, port = database_connect(return_con=False)
+
     # Verify database is running
     status = os.popen('pg_ctl status').read()
     if 'no server running' in status:
-        os.system('pg_ctl -D $HOME/.postgres/main/ -l '
-                  '$HOME/.postgres/logfile start')
+        os.system(f'pg_ctl -D $HOME/.postgres/main/ -p {port}'
+                  '-l $HOME/.postgres/logfile start')
     else:
         pass
 
     # Create database if necessary
-    with psycopg2.connect(host='localhost', database='postgres') as con:
-        con.autocommit = True
+    with database_connect(database='postgres') as con:
         cur = con.cursor()
         cur.execute('select datname from pg_database')
         dbs = [r[0] for r in cur.fetchall()]
@@ -49,20 +51,19 @@ def initialize_atomicdata(database='thesolarsystemmb', force=False):
             pass
 
     # Populate the database tables
-    with psycopg2.connect(host='localhost', database=database) as con:
-        con.autocommit = True
+    with database_connect() as con:
         cur = con.cursor()
         cur.execute('select table_name from information_schema.tables')
         tables = [r[0] for r in cur.fetchall()]
 
-        if ('gvalues' not in tables) or (force):
-            print('Making gvalue table')
-            make_gvalue_table(con)
-        else:
-            pass
+    if ('gvalues' not in tables) or (force):
+        print('Making gvalue table')
+        make_gvalue_table()
+    else:
+        pass
 
-        if ('photorates' not in tables) or (force):
-            print('Making photorates table')
-            make_photo_table(con)
-        else:
-            pass
+    if ('photorates' not in tables) or (force):
+        print('Making photorates table')
+        make_photo_table()
+    else:
+        pass

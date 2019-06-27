@@ -9,11 +9,11 @@ from astropy.io import ascii
 from astropy import constants as const
 import mathMB
 from .atomicmass import atomicmass
+from .database_connect import database_connect
 
 
-def make_gvalue_table(con):
-    """Creates and populates gvalues database table.
-
+def make_gvalue_table():
+    """ Creates and populates gvalues database table.
     Fields in the table:
         filename
         reference
@@ -22,7 +22,12 @@ def make_gvalue_table(con):
         wavelength (A)
         velocity (km/s)
         g (1/s)
+
+    :param con:
+    :return:
     """
+
+    con = database_connect()
     cur = con.cursor()
 
     # Erase the table if it is there
@@ -83,6 +88,8 @@ def make_gvalue_table(con):
                            %s, %s, %s, %s, %s, %s, %s)''',
                         (d, ref, sp, a, wave, list(vel), list(gg)))
 
+    con.close()
+
 
 class gValue:
     r"""Class containing g-value vs. velocity for a specified atom and
@@ -123,8 +130,7 @@ class gValue:
     g
         g-value as function of velocity in units 1/s.
     """
-    def __init__(self, sp, wavelength=None, aplanet=1*u.au,
-                 database='thesolarsystemmb'):
+    def __init__(self, sp, wavelength=None, aplanet=1*u.au):
 
         self.species = sp
         if wavelength is None:
@@ -145,7 +151,7 @@ class gValue:
         except:
             self.aplanet = aplanet * u.au
 
-        with psycopg2.connect(database=database) as con:
+        with database_connect() as con:
             gvalue = pd.read_sql(
                 f'''SELECT refpt, velocity, g
                     FROM gvalues
@@ -196,7 +202,7 @@ class RadPresConst:
     accel
         Radial acceleration vs. velocity with units km/s**2.
     """
-    def __init__(self, sp, aplanet, database='thesolarsystemmb'):
+    def __init__(self, sp, aplanet):
         self.species = sp
         try:
             self.aplanet = aplanet.value * u.au
@@ -204,7 +210,7 @@ class RadPresConst:
             self.aplanet = aplanet * u.au
 
         # Open database connection
-        with psycopg2.connect(database=database) as con:
+        with database_connect() as con:
             waves = pd.read_sql(f'''SELECT DISTINCT wavelength
                                     FROM gvalues
                                     WHERE species='{sp}' ''', con)
@@ -216,8 +222,7 @@ class RadPresConst:
         else:
             self.wavelength = [w*u.AA for w in waves.wavelength]
 
-            gvals = [gValue(sp, w, aplanet, database=database)
-                     for w in self.wavelength]
+            gvals = [gValue(sp, w, aplanet) for w in self.wavelength]
 
             # Complete velocity set
             allv = []

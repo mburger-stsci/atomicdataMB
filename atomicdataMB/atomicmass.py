@@ -16,7 +16,7 @@ import astropy.units as u
 def atomicmass(species):
     r"""Return the atomic mass of an atom or molecule.
 
-    **Parameters** 
+    **Parameters**
 
     species
         Chemical formula requested species. See `periodictable
