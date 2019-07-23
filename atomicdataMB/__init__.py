@@ -7,10 +7,10 @@ from .atomicmass import atomicmass
 name = 'atomicdataMB'
 __author__ = 'Matthew Burger'
 __email__ = 'mburger@stsci.edu'
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 # Verify the database is setup correctly
-try:
-    initialize_atomicdata()
-except:
-    print('database initialization failed')
+#try:
+initialize_atomicdata()
+#except:
+#    print('database initialization failed')

@@ -22,6 +22,15 @@ import stsci_rtd_theme
 def setup(app):
     app.add_stylesheet("stsci.css")
 
+from unittest.mock import MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+MOCK_MODULES = ['psycopg2']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 from distutils.version import LooseVersion
 try:

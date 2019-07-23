@@ -2,10 +2,11 @@ import os.path
 import numpy as np
 import pandas as pd
 import astropy.units as u
-try:
-    from ..g_values import gValue, RadPresConst
-except:
-    from atomicdataMB import gValue, RadPresConst
+from ..g_values import gValue, RadPresConst
+#try:
+#    from ..g_values import gValue, RadPresConst
+#except:
+#    from atomicdataMB import gValue, RadPresConst
 
 def test_gValue():
     """Compare gvalues with gvalues in IDL code."""
