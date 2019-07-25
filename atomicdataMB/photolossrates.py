@@ -1,4 +1,4 @@
-"""Create photoionization database table."""
+"""``photolossrates`` - Determine photoionization and photodissociation rates"""
 import os, os.path
 import glob
 import pandas as pd
@@ -7,13 +7,34 @@ from .database_connect import database_connect
 
 
 def make_photo_table():
-    """Create photoionization database table.
-
+    """ Creates and populates photorates database table.
+    Creates a database table called photorates. Fields in the table:
+    
+    filename
+        Filename in project tree containing the data; used only for
+        populating the database
+        
+    reference
+        Source of the photoionization or photodissociation rate
+        
+    species
+        Atomic or molecular species
+        
+    reaction
+        Photoionization or photodissociation reaction
+        
     If multiple reaction rates are found for a reaction, user is prompted
-    to choose the best one.
-
-    Photoionization and photodissociation reference:
+    to choose the best one. Most of the reactions are in:
     Huebner & Mukherjee (2015), Astrophys. Space Sci., 195, 1-294.
+    
+    **Parameters**
+    
+    None
+    
+    **Returns**
+    
+    No output
+    
     """
     con = database_connect()
 
@@ -40,7 +61,8 @@ def make_photo_table():
 
     for f in photodatafiles:
         print(f'  {f}')
-        for line in open(f).readlines():
+        ref = ''
+        for line in open(f):
             if 'reference' in line.lower():
                 ref = line.split('//')[0].strip()
             # elif 'datatype' in line.lower():
@@ -105,14 +127,45 @@ class PhotoRate:
         Species
 
     aplanet
-        Distance from the Sun; astropy quanitity with units AU
+        Distance from the Sun; astropy quantity with units AU
 
     rate
-        Reaction rate; astropy quantity with units s^{-1}
+        Reaction rate; astropy quantity with units s^{-1}. Rate is the sum
+        of all possible reactions for the species.
 
     reactions
         Pandas dataframe with columns for reaction and rate (in s^{-1}) for
-        that reaction
+        each reaction for the species. This can be used to determine the
+        products produced by photolysis and photoionization.
+        
+    **Example**
+    ::
+        >>> from atomicdataMB import PhotoRate
+        >>> kappa = PhotoRate('Na', 0.33)
+        >>> print(kappa)
+        Species = Na
+        Distance = 0.33 AU
+        Rate = 6.666666666666666e-05 1 / s
+        >>> print(kappa.rate)
+        6.666666666666666e-05 1 / s
+        >>> print(kappa.reactions)
+                       reaction                  kappa
+        0  Na, photon -> Na+, e  6.666666666666666e-05
+        >>> kappa = PhotoRate('H_2O')
+        >>> print(kappa)
+        Species = H_2O
+        Distance = 1.0 AU
+        Rate = 1.2056349999999999e-05 1 / s
+        >>> print(kappa.reactions)
+                             reaction     kappa
+        0      H_2O, photon -> H_2, O  5.97e-07
+        1       H_2O, photon -> OH, H  1.03e-05
+        2     H_2O, photon -> H, H, O  7.54e-07
+        3   H_2O, photon -> H, OH+, e  5.54e-08
+        4   H_2O, photon -> OH, H+, e  1.31e-08
+        5    H_2O, photon -> H_2O+, e  3.31e-07
+        6  H_2O, photon -> H_2, O+, e  5.85e-09
+
     """
     def __init__(self, species, aplanet_=1.*u.AU):
         with database_connect() as con:
@@ -143,7 +196,7 @@ class PhotoRate:
             self.rate = prates['kappa'].sum()/u.s
 
     def __str__(self):
-        print(f'Species = {self.species}\n'
-              f'Distance = {self.aplanet}\n'
-              f'Rate = {self.rate}')
-        return ''
+        output = (f'Species = {self.species}\n'
+                  f'Distance = {self.aplanet}\n'
+                  f'Rate = {self.rate}')
+        return output

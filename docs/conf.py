@@ -22,8 +22,8 @@ import stsci_rtd_theme
 def setup(app):
     app.add_stylesheet("stsci.css")
 
+# MagicMock takes care of packages that can't be imported on ReadTheDocs
 from unittest.mock import MagicMock
-
 class Mock(MagicMock):
     @classmethod
     def __getattr__(cls, name):
@@ -111,10 +111,10 @@ else:
 source_suffix = '.rst'
 
 # The encoding of source files.
-# source_encoding = 'utf-8-sig'
+source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'atomicdataMB/index'
 
 # A list of warning types to suppress arbitrary warning messages. We mean to
 # override directives in astropy_helpers.sphinx.ext.autodoc_enhancements,
@@ -281,7 +281,7 @@ latex_elements = {
     # The font size ('10pt', '11pt' or '12pt').
     'pointsize': '14pt',
     # Additional stuff for the LaTeX preamble.
-    'preamble': r'''\usepackage{enumitem} \setlistdepth{99}'''
+    'preamble': r'''\usepackage{enumitem} \setlistdepth{99} \usepackage[utf8]{inputenc}'''
 }
 
 # Grouping the document tree into LaTeX files. List of tuples

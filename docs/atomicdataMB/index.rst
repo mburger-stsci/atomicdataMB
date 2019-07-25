@@ -8,19 +8,20 @@ atomicdataMB provides support for the Neutral Cloud and Exospheres Model
 .. toctree::
   :maxdepth: 2
 
-  atomicdataMB/installation
-  atomicdataMB/examples
-  atomicdataMB/atomicmass
-  atomicdataMB/g_values
-  atomicdataMB/photolossrates
-  atomicdataMB/initialize_atomicdata
+  atomicmass
+  g_values
+  photolossrates
+  initialize_atomicdata
+  database_connect
   LICENSE
 
 
-User Documentation
+Installation
 ==================
-Explain how to use your software
+atomicdataMB can be installed with pip:
+::
 
+    $ pip install atomicdataMB
 
 Reporting Issues
 ================
@@ -32,7 +33,3 @@ Contributing
 ============
 Please let me know if you would like to make contributions.
 
-
-Reference API
-=============
-Package documentation usually pulled from docstrings inside the code

@@ -1,5 +1,4 @@
-"""
-``atomicmass`` - Return the atomic mass of an atom or molecule.
+"""``atomicmass`` - Return the atomic mass of an atom or molecule.
 
 This is really just a wrapper for
 `periodictable
@@ -25,9 +24,22 @@ def atomicmass(species):
 
     **Returns**
 
-    output
-        atomicmass of ``species`` as an astropy quantity with units = AMU
-        :math:`(1\, \mathrm{AMU} = 1.660539 \times 10^{−27}\, \mathrm{kg})`
+    The atomicmass of *species* as an astropy quantity with units = AMU
+    :math:`(1\, \mathrm{AMU} = 1.660539 \times 10^{-27}\, \mathrm{kg})`.
+    If ``periodictable`` returns a ValueError, *None* is returned.
+    
+    **Examples**
+    ::
+    
+        >>> from atomicdataMB import atomicmass
+        >>> print(atomicmass('Na'))
+        22.98977 u
+        >>> print(atomicmass('H2O'))
+        18.01528 u
+        >>> print(atomicmass('X'))
+        WARNING: mathMB.atomicmass: X not found
+        None
+    
     """
     el = [e.symbol for e in pt.elements]
     if species in el:

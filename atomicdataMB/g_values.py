@@ -1,6 +1,20 @@
-"""g-value routines."""
+"""``g_values`` - Routines related to g-values and radiation pressure
+The g-value is the the product of the solar flux at the dopler-shifted
+emission wavelength and the scattering probability per atom. See
+`Killen, R.M. et al., Icarus 209, 75–87, 2009.
+<http://dx.doi.org/10.1016/j.icarus.2010.02.018.>`_ for details on calculating
+g-values for important species in Mercury's atmosphere.
+
+The radiation acceleration is given by
+:math:`a_{rad} = h g/m \lambda`,
+where h is Plank's constant, g is the g-value as a function of radial
+velocity, m is the mass of the accelerated species, and λ is the wavelength
+of the absorbed photon.
+"""
+
 import glob
-import os, os.path
+import os
+import os.path
 import numpy as np
 import pandas as pd
 import astropy.units as u
@@ -13,19 +27,38 @@ from .database_connect import database_connect
 
 def make_gvalue_table():
     """ Creates and populates gvalues database table.
-    Fields in the table:
-        filename
-        reference
-        speceis
-        refpt (AU)
-        wavelength (A)
-        velocity (km/s)
-        g (1/s)
-
-    :param con:
-    :return:
+    Creates a database table called gvalues. Fields in the table:
+    
+    filename
+        Filename in project tree containing the data; used only for
+        populating the database
+        
+    reference
+        Source of the g-values
+        
+    species
+        Atomic species
+        
+    refpt
+        Distance from Sun in AU for which the g-values were calculated.
+        
+    wavelength
+        At-rest wavelength for the g-values in Å.
+    
+    velocity
+        :math:`\Delta \mathrm{v}` from rest in km/s.
+        
+    g
+        g-values in photons/s as a fucntion of velocity.
+        
+    **Parameters**
+    
+    None
+    
+    **Returns**
+    
+    No Output
     """
-
     con = database_connect()
     cur = con.cursor()
 
@@ -100,15 +133,11 @@ class gValue:
         atomic species
 
     wavelength
-        Wavelength of the transition
+        Wavelength of the transition. Default=None.
 
     aplanet
         Distance from the Sun. Can be given as an astropy quantity with
         distance units or as a float assumed to be in AU. Default = 1 AU
-
-    database
-        Database containing solar system information. Default =
-        `thesolarsystemmb` which probably shouldn't be overridden.
 
     **Class Attributes**
 
