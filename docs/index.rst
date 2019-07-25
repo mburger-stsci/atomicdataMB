@@ -8,12 +8,12 @@ atomicdataMB provides support for the Neutral Cloud and Exospheres Model
 .. toctree::
   :maxdepth: 2
 
-  atomicmass
-  g_values
-  photolossrates
-  initialize_atomicdata
-  database_connect
-  LICENSE
+  atomicdataMB/atomicmass
+  atomicdataMB/g_values
+  atomicdataMB/photolossrates
+  atomicdataMB/initialize_atomicdata
+  atomicdataMB/database_connect
+  atomicdataMB/LICENSE
 
 
 Installation

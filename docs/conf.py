@@ -114,7 +114,7 @@ source_suffix = '.rst'
 source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'atomicdataMB/index'
+master_doc = 'index'
 
 # A list of warning types to suppress arbitrary warning messages. We mean to
 # override directives in astropy_helpers.sphinx.ext.autodoc_enhancements,
