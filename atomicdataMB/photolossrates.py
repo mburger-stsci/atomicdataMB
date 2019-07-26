@@ -43,7 +43,7 @@ def make_photo_table():
     cur.execute('select table_name from information_schema.tables')
     tables = [r[0] for r in cur.fetchall()]
     if 'photorates' in tables:
-        cur.execute('''DROP table photorates''')
+        cur.execute('''DROP TABLE photorates''')
     else:
         pass
 
@@ -95,7 +95,10 @@ def make_photo_table():
             print('Reaction = {}'.format(r))
             for i, a in enumerate(refs):
                 print('({}) {}'.format(i, a))
-            q = input('Which reference do you want to use?')
+            try:
+                q = input('Which reference do you want to use?')
+            except IOError:
+                q = 0
             q = int(q)
             cur.execute('''UPDATE photorates
                            SET bestvalue=True

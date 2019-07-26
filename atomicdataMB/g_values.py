@@ -66,7 +66,7 @@ def make_gvalue_table():
     cur.execute('select table_name from information_schema.tables')
     tables = [r[0] for r in cur.fetchall()]
     if 'gvalues' in tables:
-        cur.execute('''DROP table photorates''')
+        cur.execute('''DROP TABLE gvalues''')
     else:
         pass
 

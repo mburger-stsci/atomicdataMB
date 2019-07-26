@@ -51,8 +51,5 @@ def atomicmass(species):
         except ValueError:
             print(f'WARNING: mathMB.atomicmass: {species} not found')
             mass = None
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
-            raise
 
     return mass

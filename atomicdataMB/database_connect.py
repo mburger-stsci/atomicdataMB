@@ -45,7 +45,7 @@ def database_connect(database=None, port=None, return_con=True):
     configfile = os.path.join(os.environ['HOME'], '.nexoclom')
     config = {}
     if os.path.isfile(configfile):
-        for line in open(configfile, 'r').readlines():
+        for line in open(configfile, 'r'):
             key, value = line.split('=')
             config[key.strip()] = value.strip()
 
