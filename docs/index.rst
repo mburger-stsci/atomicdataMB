@@ -13,7 +13,6 @@ atomicdataMB provides support for the Neutral Cloud and Exospheres Model
   atomicdataMB/photolossrates
   atomicdataMB/initialize_atomicdata
   atomicdataMB/database_connect
-  atomicdataMB/LICENSE
 
 
 Installation
@@ -33,3 +32,5 @@ Contributing
 ============
 Please let me know if you would like to make contributions.
 
+:Authors: Matthew Burger
+:License: :doc:`LICENSE`
