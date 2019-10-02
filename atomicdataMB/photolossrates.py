@@ -95,11 +95,7 @@ def make_photo_table():
             print('Reaction = {}'.format(r))
             for i, a in enumerate(refs):
                 print('({}) {}'.format(i, a))
-            try:
-                q = input('Which reference do you want to use?')
-            except IOError:
-                q = 0
-            q = int(q)
+            q = 0
             cur.execute('''UPDATE photorates
                            SET bestvalue=True
                            WHERE reaction=%s and reference=%s''',

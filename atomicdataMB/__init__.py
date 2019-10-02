@@ -8,6 +8,6 @@ from .database_connect import database_connect
 name = 'atomicdataMB'
 __author__ = 'Matthew Burger'
 __email__ = 'mburger@stsci.edu'
-__version__ = '1.1.6'
+__version__ = '1.1.7'
 
 initialize_atomicdata()
