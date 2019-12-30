@@ -6,7 +6,6 @@ This is really just a wrapper for
 but returns the mass as an `astropy quantity
 <http://docs.astropy.org/en/stable/units/index.html>`_.
 """
-import sys
 import periodictable as pt
 from periodictable import formulas
 import astropy.units as u
